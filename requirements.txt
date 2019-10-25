@@ -1,0 +1,13 @@
+#  Finacial lib
+talib
+
+# MatplotLib
+matplotlib
+
+## Others
+requests
+json
+numpy
+pandas
+logging
+ccxt

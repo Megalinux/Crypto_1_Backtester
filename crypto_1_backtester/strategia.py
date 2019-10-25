@@ -92,7 +92,7 @@ class StrategiaTrendFollowing(Strategia):
         
         
         
-        self.nome = "Test Strategia Trend Following "
+        self.nome = "Test Strategy Trend Following "
         
 
         candle = candlestick.Candlestick()

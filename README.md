@@ -96,9 +96,9 @@ parametri.stoploss_dinamico_formula = "row.ema3"
 ### Run ###
 
 1. Configure strategy and parameters on strategia.py with text editor as already described
-2. In terminal/cmd go to Your main TMB_Backtester's folder.
+2. In terminal/cmd go to Your main Backtester's folder.
 3. Run BacktestTool by command: python3 backtester_v1 {exchange} {pair}
-    example of run backtester:
+    Example of run backtester:
 
     * `python3 backtester_v1 poloniex 'ATOM/BTC'`
     * `python3 backtester_v1 poloniex 'DOGE/BTC'`
@@ -124,7 +124,7 @@ For any questions not covered by the documentation or for further information ab
 
 ### Bugs / Issues ###
 
-If you discover a bug in the bot, please search our issue tracker first. If it hasn't been reported, please create a new issue and ensure you follow the template guide so that our team can assist you as quickly as possible.
+If you discover a bug in the bot, please search [our issue tracker first](https://github.com/Megalinux/Crypto_1_Backtester/issues?q=is%3Aissue) . If it hasn't been reported, please [create a new issue](https://github.com/Megalinux/Crypto_1_Backtester/issues/new) and ensure you follow the template guide so that our team can assist you as quickly as possible.
 Feature Requests
 
 Have you a great idea to improve the bot you want to share? Please, first search if this feature was not already discussed. If it hasn't been requested, please create a new request and ensure you follow the template guide so that it does not get lost in 

@@ -22,7 +22,7 @@ We strongly recommend you to have coding and Python knowledge. Do not hesitate t
 
 ### Creating your Strategy ###
 
-* You can define a strategy by implementing the Strategia Class in strategia.py. Through the configuration of numerous parameters there is the possibility of implementing many strategies using the Qtpylib and Ta-lib libraries.
+* You can define a strategy by implementing the Strategia Class in strategy.py. Through the configuration of numerous parameters present in the file tools.py there is the possibility of implementing many strategies using the Qtpylib and Ta-lib libraries.
  
 ### Example 1 of strategy ###
 
@@ -75,13 +75,13 @@ self.df1.loc[
 
 * Create your dinamyc stoploss formula.
 
-1. Modify the parameter parametri.stoploss_dinamico_formula on file strategia.py with text editor as following described.
+1. Modify the parameter tool.stoploss_dinamico_formula on file strategy.py with text editor as following described.
 
 ###example 1 ###
 
 ```python
 
-parametri.stoploss_dinamico_formula = "row.close * parametri.stoploss_dinamico_moltiplicatore" 
+parametri.stoploss_dinamico_formula = "row.close * tool.stoploss_dinamico_moltiplicatore" 
         
 ```
 

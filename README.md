@@ -22,7 +22,7 @@ We strongly recommend you to have coding and Python knowledge. Do not hesitate t
 
 ### Creating your Strategy ###
 
-* You can define a strategy by implementing the Strategia Class in strategy.py. Through the configuration of numerous parameters present in the file tools.py there is the possibility of implementing many strategies using the Qtpylib and Ta-lib libraries.
+* You can define a strategy by implementing the Strategy Class in strategy.py. Through the configuration of numerous parameters present in the file tools.py there is the possibility of implementing many strategies using the Qtpylib and Ta-lib libraries.
  
 ### Example 1 of strategy ###
 
@@ -81,7 +81,7 @@ self.df1.loc[
 
 ```python
 
-parametri.stoploss_dinamico_formula = "row.close * tool.stoploss_dinamico_moltiplicatore" 
+tool.stoploss_dinamico_formula = "row.close * tool.stoploss_dinamico_moltiplicatore" 
         
 ```
 
@@ -89,13 +89,13 @@ parametri.stoploss_dinamico_formula = "row.close * tool.stoploss_dinamico_moltip
 
 ```python  
 
-parametri.stoploss_dinamico_formula = "row.ema3"
+tool.stoploss_dinamico_formula = "row.ema3"
 
 ```
 
 ### Run ###
 
-1. Configure strategy and parameters on strategia.py with text editor as already described
+1. Configure strategy and parameters on strategy.py with text editor as already described
 2. In terminal/cmd go to Your main Backtester's folder.
 3. Run BacktestTool by command: python3 backtester_v1 {exchange} {pair}
     Example of run backtester:

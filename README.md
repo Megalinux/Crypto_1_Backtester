@@ -2,14 +2,16 @@
 
 [![Donate with Bitcoin](https://en.cryptobadges.io/badge/small/3EJZiSmqRkoZ48ae2pYbKupMYQqoQvxdxe)](https://en.cryptobadges.io/donate/3EJZiSmqRkoZ48ae2pYbKupMYQqoQvxdxe)
 
-* Backtest of different trading strategies written by Grando Ruggero. The tools performs a simulation with a single pair on a single run and implements the dynamic and static stoploss.   
+* Backtesting is a process of applying a current strategy to historical data with the objective to determine wich implemented strategy is the best in terms of profit. The profit is determined by sell and buy transactions.
+
+* Crypto_1_Backtester is a backtester tool of trading strategies written by Grando Ruggero. This tool performs a simulation with a single pair of cryptocurrency on a single run and implements a dynamic and static stoploss. The backtester uses an Crypto Asset exchange (among those supported by the CXXT library) and the Pair (asset/currency) present in these exchanges.  
 * Version 0.0.1
 
 ### Disclaimer ###
 
 This software is for educational purposes only. Do not risk money which you are afraid to lose. USE THE SOFTWARE AT YOUR OWN RISK. THE AUTHORS AND ALL AFFILIATES ASSUME NO RESPONSIBILITY FOR YOUR TRADING RESULTS.
 
-We strongly recommend you to have coding and Python knowledge. Do not hesitate to read the source code and understand the mechanism of this bot.
+We strongly recommend you to have coding and Python knowledge. Do not hesitate to read the source code and understand the mechanism of this backtester.
 
 ### Features ###
 

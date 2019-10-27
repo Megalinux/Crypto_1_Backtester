@@ -20,7 +20,7 @@ We strongly recommend you to have coding and Python knowledge. Do not hesitate t
 * **Visualization** of the strategy progress and result with matplotblib
 * Configuration of a set of **parameters**
 * Calculation of a strategy **value**
-* Support of CryptoCurrency eXchange Trading Library **CCXT** https://github.com/ccxt/ccxt
+* Support of CryptoCurrency eXchange Trading Library [CCXT](https://github.com/ccxt/ccxt)
 
 ### Creating your Strategy ###
 

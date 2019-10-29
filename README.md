@@ -7,6 +7,8 @@
 * Crypto_1_Backtester is a backtester tool of trading strategies written by Grando Ruggero. This tool performs a simulation with a single pair of cryptocurrency on a single run and implements a dynamic and static stoploss. The backtester uses an Crypto Asset exchange (among those supported by the [CCXT](https://github.com/ccxt/ccxt) library) like Poloniex, or Bittrex, or Binance and the Pair (asset/currency) like ETH/BTC, or ETC/BTC  present in these exchanges.
 * Version 0.0.1
 
+![Image](https://raw.githubusercontent.com/Megalinux/Crypto_1_Backtester/master/crypto_1_backtester/img/Example_1_ETC_BTC_Binance_48h.png)
+
 ### Disclaimer ###
 
 This software is for educational purposes only. Do not risk money which you are afraid to lose. USE THE SOFTWARE AT YOUR OWN RISK. THE AUTHORS AND ALL AFFILIATES ASSUME NO RESPONSIBILITY FOR YOUR TRADING RESULTS.

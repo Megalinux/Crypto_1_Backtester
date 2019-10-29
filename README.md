@@ -4,8 +4,7 @@
 
 * Backtesting is a process of applying a strategy to historical data with the objective to determine wich implemented strategy is the best in terms of profit. The profit is determined by sell and buy transactions.
 
-![Crypto_1_Backtester]
-<center><h2> The Crawler</h2></center>
+<center><h2> Crypto_1_Backtester</h2></center>
 <img src="https://github.com/Megalinux/Crypto_1_Backtester/tree/master/crypto_1_backtester/img/Example_1_XRP_BTC_Binance_36h.png"/>
 <br>
 <p align="left">

@@ -85,7 +85,7 @@ self.df1.loc[
 * Create your dynamic stoploss formula.
 1. Modify the parameter tool.stoploss_dinamico_formula on file strategy.py with text editor as following described.
 
-###example 1 ###
+### example 1 ###
 
 ```python
 

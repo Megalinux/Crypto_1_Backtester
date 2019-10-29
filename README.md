@@ -2,7 +2,7 @@
 
 [![Donate with Bitcoin](https://en.cryptobadges.io/badge/small/3EJZiSmqRkoZ48ae2pYbKupMYQqoQvxdxe)](https://en.cryptobadges.io/donate/3EJZiSmqRkoZ48ae2pYbKupMYQqoQvxdxe)
 
-* Backtesting is a process of applying a strategy to historical data with the objective to determine wich implemented strategy is the best in terms of profit. The profit is determined by sell and buy transactions.
+* Backtesting is a process of applying a strategy to historical data with the objective to determine wich implemented strategy is the best in terms of profit. The profit is determined by sell and buy transactions. 
 
 * Crypto_1_Backtester is a backtester tool of trading strategies written by Grando Ruggero. This tool performs a simulation with a single pair of cryptocurrency on a single run and implements a dynamic and static stoploss. The backtester uses an Crypto Asset exchange (among those supported by the [CCXT](https://github.com/ccxt/ccxt) library) like Poloniex, or Bittrex, or Binance and the Pair (asset/currency) like ETH/BTC, or ETC/BTC  present in these exchanges.
 * Version 0.0.1
@@ -20,6 +20,7 @@ We strongly recommend you to have coding and Python knowledge. Do not hesitate t
 * **Visualization** of the strategy progress and result with matplotblib
 * Configuration of a set of **parameters**
 * Calculation of a strategy **value**
+* **Log** support of all operations
 * Support of CryptoCurrency eXchange Trading Library [CCXT](https://github.com/ccxt/ccxt)
 
 ### Creating your Strategy ###
@@ -73,10 +74,15 @@ self.df1.loc[
             'Buysignal'] = 1
 ```
 
-### Create your dinamyc stoploss
+### Create your static stoploss ###
 
-* Create your dinamyc stoploss formula.
+* The static stoploss is activated by assigning the value 1 to the parameter tool.attivazione_stoploss_statico on file strategia.py.
+* The value of parameter tool.stoploss_1 is the percentage of stoploss. When the price of pair (example 'ETH/BTC') falls below this limit a sell operation is esecuted. 
 
+### Create your dynamic stoploss ###
+
+* The dynamic stoploss is activated by assigning the value 1 to the parameter tool.attivazione_stoploss_dinamico on file strategia.py.
+* Create your dynamic stoploss formula.
 1. Modify the parameter tool.stoploss_dinamico_formula on file strategy.py with text editor as following described.
 
 ###example 1 ###

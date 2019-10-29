@@ -40,7 +40,7 @@ warnings.simplefilter(action="ignore", category=RuntimeWarning)
 
 def numpy_rolling_window(data, window):
     shape = data.shape[:-1] + (data.shape[-1] - window + 1, window)
-    strides = data.strides + (data.strides[-1],)
+    strides = data.strides + (data.strides[-1], )
     return np.lib.stride_tricks.as_strided(data, shape=shape, strides=strides)
 
 
@@ -104,33 +104,42 @@ def session(df, start='17:00', end='16:00'):
 
     return df.copy()
 
+
 # ---------------------------------------------
 
 
 def heikinashi(bars):
     bars = bars.copy()
-    bars['ha_close'] = (bars['open'] + bars['high'] +
-                        bars['low'] + bars['close']) / 4
+    bars['ha_close'] = (bars['open'] + bars['high'] + bars['low'] +
+                        bars['close']) / 4
 
     # ha open
     bars.at[0, 'ha_open'] = (bars.at[0, 'open'] + bars.at[0, 'close']) / 2
     for i in range(1, len(bars)):
-        bars.at[i, 'ha_open'] = (bars.at[i - 1, 'ha_open'] + bars.at[i - 1, 'ha_close']) / 2
+        bars.at[i, 'ha_open'] = (bars.at[i - 1, 'ha_open'] +
+                                 bars.at[i - 1, 'ha_close']) / 2
 
     bars['ha_high'] = bars.loc[:, ['high', 'ha_open', 'ha_close']].max(axis=1)
     bars['ha_low'] = bars.loc[:, ['low', 'ha_open', 'ha_close']].min(axis=1)
 
     return pd.DataFrame(index=bars.index,
-                        data={'open': bars['ha_open'],
-                              'high': bars['ha_high'],
-                              'low': bars['ha_low'],
-                              'close': bars['ha_close']})
+                        data={
+                            'open': bars['ha_open'],
+                            'high': bars['ha_high'],
+                            'low': bars['ha_low'],
+                            'close': bars['ha_close']
+                        })
+
 
 # ---------------------------------------------
 
 
-def tdi(series, rsi_lookback=13, rsi_smooth_len=2,
-        rsi_signal_len=7, bb_lookback=34, bb_std=1.6185):
+def tdi(series,
+        rsi_lookback=13,
+        rsi_smooth_len=2,
+        rsi_signal_len=7,
+        bb_lookback=34,
+        bb_std=1.6185):
 
     rsi_data = rsi(series, rsi_lookback)
     rsi_smooth = sma(rsi_data, rsi_smooth_len)
@@ -138,14 +147,16 @@ def tdi(series, rsi_lookback=13, rsi_smooth_len=2,
 
     bb_series = bollinger_bands(rsi_data, bb_lookback, bb_std)
 
-    return pd.DataFrame(index=series.index, data={
-        "rsi": rsi_data,
-        "rsi_signal": rsi_signal,
-        "rsi_smooth": rsi_smooth,
-        "rsi_bb_upper": bb_series['upper'],
-        "rsi_bb_lower": bb_series['lower'],
-        "rsi_bb_mid": bb_series['mid']
-    })
+    return pd.DataFrame(index=series.index,
+                        data={
+                            "rsi": rsi_data,
+                            "rsi_signal": rsi_signal,
+                            "rsi_smooth": rsi_smooth,
+                            "rsi_bb_upper": bb_series['upper'],
+                            "rsi_bb_lower": bb_series['lower'],
+                            "rsi_bb_mid": bb_series['mid']
+                        })
+
 
 # ---------------------------------------------
 
@@ -164,6 +175,7 @@ def awesome_oscillator(df, weighted=False, fast=5, slow=34):
 
 # ---------------------------------------------
 
+
 def nans(length=1):
     mtx = np.empty(length)
     mtx[:] = np.nan
@@ -172,12 +184,14 @@ def nans(length=1):
 
 # ---------------------------------------------
 
+
 def typical_price(bars):
     res = (bars['high'] + bars['low'] + bars['close']) / 3.
     return pd.Series(index=bars.index, data=res)
 
 
 # ---------------------------------------------
+
 
 def mid_price(bars):
     res = (bars['high'] + bars['low']) / 2.
@@ -186,14 +200,16 @@ def mid_price(bars):
 
 # ---------------------------------------------
 
+
 def ibs(bars):
     """ Internal bar strength """
-    res = np.round((bars['close'] - bars['low']) /
-                   (bars['high'] - bars['low']), 2)
+    res = np.round(
+        (bars['close'] - bars['low']) / (bars['high'] - bars['low']), 2)
     return pd.Series(index=bars.index, data=res)
 
 
 # ---------------------------------------------
+
 
 def true_range(bars):
     return pd.DataFrame({
@@ -204,6 +220,7 @@ def true_range(bars):
 
 
 # ---------------------------------------------
+
 
 def atr(bars, window=14, exp=False):
     tr = true_range(bars)
@@ -218,6 +235,7 @@ def atr(bars, window=14, exp=False):
 
 # ---------------------------------------------
 
+
 def crossed(series1, series2, direction=None):
     if isinstance(series1, np.ndarray):
         series1 = pd.Series(series1)
@@ -226,12 +244,12 @@ def crossed(series1, series2, direction=None):
         series2 = pd.Series(index=series1.index, data=series2)
 
     if direction is None or direction == "above":
-        above = pd.Series((series1 > series2) & (
-            series1.shift(1) <= series2.shift(1)))
+        above = pd.Series((series1 > series2)
+                          & (series1.shift(1) <= series2.shift(1)))
 
     if direction is None or direction == "below":
-        below = pd.Series((series1 < series2) & (
-            series1.shift(1) >= series2.shift(1)))
+        below = pd.Series((series1 < series2)
+                          & (series1.shift(1) >= series2.shift(1)))
 
     if direction is None:
         return above or below
@@ -246,6 +264,7 @@ def crossed_above(series1, series2):
 def crossed_below(series1, series2):
     return crossed(series1, series2, "below")
 
+
 # ---------------------------------------------
 
 
@@ -257,7 +276,9 @@ def rolling_std(series, window=200, min_periods=None):
         try:
             return series.rolling(window=window, min_periods=min_periods).std()
         except Exception as e:  # noqa: F841
-            return pd.Series(series).rolling(window=window, min_periods=min_periods).std()
+            return pd.Series(series).rolling(window=window,
+                                             min_periods=min_periods).std()
+
 
 # ---------------------------------------------
 
@@ -268,9 +289,12 @@ def rolling_mean(series, window=200, min_periods=None):
         return numpy_rolling_mean(series, window, True)
     else:
         try:
-            return series.rolling(window=window, min_periods=min_periods).mean()
+            return series.rolling(window=window,
+                                  min_periods=min_periods).mean()
         except Exception as e:  # noqa: F841
-            return pd.Series(series).rolling(window=window, min_periods=min_periods).mean()
+            return pd.Series(series).rolling(window=window,
+                                             min_periods=min_periods).mean()
+
 
 # ---------------------------------------------
 
@@ -280,20 +304,24 @@ def rolling_min(series, window=14, min_periods=None):
     try:
         return series.rolling(window=window, min_periods=min_periods).min()
     except Exception as e:  # noqa: F841
-        return pd.Series(series).rolling(window=window, min_periods=min_periods).min()
+        return pd.Series(series).rolling(window=window,
+                                         min_periods=min_periods).min()
 
 
 # ---------------------------------------------
+
 
 def rolling_max(series, window=14, min_periods=None):
     min_periods = window if min_periods is None else min_periods
     try:
         return series.rolling(window=window, min_periods=min_periods).min()
     except Exception as e:  # noqa: F841
-        return pd.Series(series).rolling(window=window, min_periods=min_periods).min()
+        return pd.Series(series).rolling(window=window,
+                                         min_periods=min_periods).min()
 
 
 # ---------------------------------------------
+
 
 def rolling_weighted_mean(series, window=200, min_periods=None):
     min_periods = window if min_periods is None else min_periods
@@ -305,6 +333,7 @@ def rolling_weighted_mean(series, window=200, min_periods=None):
 
 # ---------------------------------------------
 
+
 def hull_moving_average(series, window=200, min_periods=None):
     min_periods = window if min_periods is None else min_periods
     ma = (2 * rolling_weighted_mean(series, window / 2, min_periods)) - \
@@ -314,23 +343,29 @@ def hull_moving_average(series, window=200, min_periods=None):
 
 # ---------------------------------------------
 
+
 def sma(series, window=200, min_periods=None):
     return rolling_mean(series, window=window, min_periods=min_periods)
 
 
 # ---------------------------------------------
 
+
 def wma(series, window=200, min_periods=None):
-    return rolling_weighted_mean(series, window=window, min_periods=min_periods)
+    return rolling_weighted_mean(series,
+                                 window=window,
+                                 min_periods=min_periods)
 
 
 # ---------------------------------------------
+
 
 def hma(series, window=200, min_periods=None):
     return hull_moving_average(series, window=window, min_periods=min_periods)
 
 
 # ---------------------------------------------
+
 
 def vwap(bars):
     """
@@ -347,6 +382,7 @@ def vwap(bars):
 
 # ---------------------------------------------
 
+
 def rolling_vwap(bars, window=200, min_periods=None):
     """
     calculate vwap using moving window
@@ -362,11 +398,13 @@ def rolling_vwap(bars, window=200, min_periods=None):
                                       min_periods=min_periods).sum()
     right = volume.rolling(window=window, min_periods=min_periods).sum()
 
-    return pd.Series(index=bars.index, data=(left / right)
-                     ).replace([np.inf, -np.inf], float('NaN')).ffill()
+    return pd.Series(index=bars.index,
+                     data=(left / right)).replace([np.inf, -np.inf],
+                                                  float('NaN')).ffill()
 
 
 # ---------------------------------------------
+
 
 def rsi(series, window=14):
     """
@@ -403,6 +441,7 @@ def rsi(series, window=14):
 
 # ---------------------------------------------
 
+
 def macd(series, fast=3, slow=10, smooth=16):
     """
     compute the MACD (Moving Average Convergence/Divergence)
@@ -414,14 +453,16 @@ def macd(series, fast=3, slow=10, smooth=16):
     signal = rolling_weighted_mean(macd_line, window=smooth)
     histogram = macd_line - signal
     # return macd_line, signal, histogram
-    return pd.DataFrame(index=series.index, data={
-        'macd': macd_line.values,
-        'signal': signal.values,
-        'histogram': histogram.values
-    })
+    return pd.DataFrame(index=series.index,
+                        data={
+                            'macd': macd_line.values,
+                            'signal': signal.values,
+                            'histogram': histogram.values
+                        })
 
 
 # ---------------------------------------------
+
 
 def bollinger_bands(series, window=20, stds=2):
     ma = rolling_mean(series, window=window, min_periods=1)
@@ -429,14 +470,16 @@ def bollinger_bands(series, window=20, stds=2):
     upper = ma + std * stds
     lower = ma - std * stds
 
-    return pd.DataFrame(index=series.index, data={
-        'upper': upper,
-        'mid': ma,
-        'lower': lower
-    })
+    return pd.DataFrame(index=series.index,
+                        data={
+                            'upper': upper,
+                            'mid': ma,
+                            'lower': lower
+                        })
 
 
 # ---------------------------------------------
+
 
 def weighted_bollinger_bands(series, window=20, stds=2):
     ema = rolling_weighted_mean(series, window=window)
@@ -444,19 +487,21 @@ def weighted_bollinger_bands(series, window=20, stds=2):
     upper = ema + std * stds
     lower = ema - std * stds
 
-    return pd.DataFrame(index=series.index, data={
-        'upper': upper.values,
-        'mid': ema.values,
-        'lower': lower.values
-    })
+    return pd.DataFrame(index=series.index,
+                        data={
+                            'upper': upper.values,
+                            'mid': ema.values,
+                            'lower': lower.values
+                        })
 
 
 # ---------------------------------------------
+
 
 def returns(series):
     try:
-        res = (series / series.shift(1) -
-               1).replace([np.inf, -np.inf], float('NaN'))
+        res = (series / series.shift(1) - 1).replace([np.inf, -np.inf],
+                                                     float('NaN'))
     except Exception as e:  # noqa: F841
         res = nans(len(series))
 
@@ -464,11 +509,12 @@ def returns(series):
 
 
 # ---------------------------------------------
+
 
 def log_returns(series):
     try:
-        res = np.log(series / series.shift(1)
-                     ).replace([np.inf, -np.inf], float('NaN'))
+        res = np.log(series / series.shift(1)).replace([np.inf, -np.inf],
+                                                       float('NaN'))
     except Exception as e:  # noqa: F841
         res = nans(len(series))
 
@@ -477,10 +523,11 @@ def log_returns(series):
 
 # ---------------------------------------------
 
+
 def implied_volatility(series, window=252):
     try:
-        logret = np.log(series / series.shift(1)
-                        ).replace([np.inf, -np.inf], float('NaN'))
+        logret = np.log(series / series.shift(1)).replace([np.inf, -np.inf],
+                                                          float('NaN'))
         res = numpy_rolling_std(logret, window) * np.sqrt(window)
     except Exception as e:  # noqa: F841
         res = nans(len(series))
@@ -490,6 +537,7 @@ def implied_volatility(series, window=252):
 
 # ---------------------------------------------
 
+
 def keltner_channel(bars, window=14, atrs=2):
     typical_mean = rolling_mean(typical_price(bars), window)
     atrval = atr(bars, window) * atrs
@@ -497,14 +545,16 @@ def keltner_channel(bars, window=14, atrs=2):
     upper = typical_mean + atrval
     lower = typical_mean - atrval
 
-    return pd.DataFrame(index=bars.index, data={
-        'upper': upper.values,
-        'mid': typical_mean.values,
-        'lower': lower.values
-    })
+    return pd.DataFrame(index=bars.index,
+                        data={
+                            'upper': upper.values,
+                            'mid': typical_mean.values,
+                            'lower': lower.values
+                        })
 
 
 # ---------------------------------------------
+
 
 def roc(series, window=14):
     """
@@ -515,6 +565,7 @@ def roc(series, window=14):
 
 
 # ---------------------------------------------
+
 
 def cci(series, window=14):
     """
@@ -528,6 +579,7 @@ def cci(series, window=14):
 
 # ---------------------------------------------
 
+
 def stoch(df, window=14, d=3, k=3, fast=False):
     """
     compute the n period relative strength indicator
@@ -539,10 +591,8 @@ def stoch(df, window=14, d=3, k=3, fast=False):
     my_df['rolling_max'] = df['high'].rolling(window).max()
     my_df['rolling_min'] = df['low'].rolling(window).min()
 
-    my_df['fast_k'] = (
-        100 * (df['close'] - my_df['rolling_min']) /
-        (my_df['rolling_max'] - my_df['rolling_min'])
-    )
+    my_df['fast_k'] = (100 * (df['close'] - my_df['rolling_min']) /
+                       (my_df['rolling_max'] - my_df['rolling_min']))
     my_df['fast_d'] = my_df['fast_k'].rolling(d).mean()
 
     if fast:
@@ -552,6 +602,7 @@ def stoch(df, window=14, d=3, k=3, fast=False):
     my_df['slow_d'] = my_df['slow_k'].rolling(d).mean()
 
     return my_df.loc[:, ['slow_k', 'slow_d']]
+
 
 # ---------------------------------------------
 
@@ -583,6 +634,7 @@ def zlsma(series, window, min_periods=None):
 def zlhma(series, window, min_periods=None):
     return zlma(series, window, min_periods, kind="hma")
 
+
 # ---------------------------------------------
 
 
@@ -591,6 +643,7 @@ def zscore(bars, window=20, stds=1, col='close'):
     std = numpy_rolling_std(bars[col], window)
     mean = numpy_rolling_mean(bars[col], window)
     return (bars[col] - mean) / (std * stds)
+
 
 # ---------------------------------------------
 
@@ -610,7 +663,6 @@ def chopiness(bars, window=14):
 
 
 # =============================================
-
 
 PandasObject.session = session
 PandasObject.atr = atr

@@ -67,8 +67,8 @@ class StrategyTrendFollowing(Strategy):
 
         #Attention: static stoploss and dynamic stoploss cannot be activated simultaneously
 
-        tool.attivazione_stoploss_statico = 1  #with zero not activated, with 1 activated
-        tool.attivazione_stoploss_dinamico = 0  # with zero not activated, with 1 activated
+        tool.attivazione_stoploss_statico = 0  #with zero not activated, with 1 activated
+        tool.attivazione_stoploss_dinamico = 1  # with zero not activated, with 1 activated
         tool.profitto = 0.7  #minimum percentage of profit
         tool.stoploss_1 = 0.8  #percentage of stoploss
         tool.stoploss_2 = 2.0  #second level stoploss percentage (not active for now)
@@ -77,9 +77,9 @@ class StrategyTrendFollowing(Strategy):
         tool.stoploss_dinamico_moltiplicatore = 0.994  #multiplier of the trailing stop
         tool.stoploss_dinamico_formula = "row.close * tool.stoploss_dinamico_moltiplicatore"  #formula per il calcolo dello stoploss dinamico (trailing stop)
         tool.attivazione_stoploss_dinamico_limiti = 1  #with zero not activated, with 1 activated. It works if dynamic stoploss is activated
-        tool.stoploss_dinamico_min_profitto = 0.6  #minimum profit compared to lastbuy if activated stoploss_dinamico_limiti
+        tool.stoploss_dinamico_min_profitto = 0.8  #minimum profit compared to lastbuy if activated stoploss_dinamico_limiti
         tool.stoploss_dinamico_max_perdita = 2  #max loss in percentage compared to lastbuy if activated stoploss_dinamico_limiti
-        tool.hours = 24  #timedelta from now
+        tool.hours = 36  #timedelta from now
 
         self.nome = "Test Strategy Trend Following "
 

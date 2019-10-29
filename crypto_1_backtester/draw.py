@@ -18,9 +18,9 @@ class Draw():
         self.nrgrafici = nrgrafici
 
     def draw_graphic(self, moneta, x, y, buysignal_vect, sellsignal_vect,
-                        prezzmed_vect, stoplosssignal_vect, stddev_vect,
-                        titolostrategia, valorestrategia, date, ema_vect,
-                        rsi_vect):
+                     prezzmed_vect, stoplosssignal_vect, stddev_vect,
+                     titolostrategia, valorestrategia, date, ema_vect,
+                     rsi_vect):
 
         self.moneta = moneta
         self.x = date

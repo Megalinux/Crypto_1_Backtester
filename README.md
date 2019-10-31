@@ -25,6 +25,9 @@ We strongly recommend you to have coding and Python knowledge. Do not hesitate t
 * **Log** support of all operations
 * Support of CryptoCurrency eXchange Trading Library [CCXT](https://github.com/ccxt/ccxt)
 
+### Roadmap
+* A short version of Roadmap is available at the following address [Roadmap](https://github.com/Megalinux/Crypto_1_Backtester/blob/master/ROADMAP.md)
+
 ### Creating your Strategy ###
 
 * You can define a strategy by implementing the Strategy Class in strategy.py. Through the configuration of numerous parameters present in the file tools.py there is the possibility of implementing many strategies using the Qtpylib and Ta-lib libraries.

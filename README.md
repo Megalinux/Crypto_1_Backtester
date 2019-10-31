@@ -27,6 +27,7 @@ We strongly recommend you to have coding and Python knowledge. Do not hesitate t
 
 ### Roadmap
 * A short version of Roadmap is available at the following address [Roadmap](https://github.com/Megalinux/Crypto_1_Backtester/blob/master/ROADMAP.md)
+![Image](https://raw.githubusercontent.com/Megalinux/Crypto_1_Backtester/master/crypto_1_backtester/img/Roadmap.png)
 
 ### Creating your Strategy ###
 

@@ -55,6 +55,42 @@ class Draw():
     def draw_graphic_1(self):
 
         print("The matplolib display has not been configured")
+        plt.subplot(111)
+
+        plt.plot(self.x, self.y, color="blue", linewidth=1, label="Close")
+        plt.plot(self.x,
+                 self.buysignal_vect,
+                 color="green",
+                 label="BuySignal",
+                 marker='v')
+        plt.plot(self.x,
+                 self.sellsignal_vect,
+                 color="red",
+                 label="SellSignal",
+                 marker='v')
+        plt.plot(self.x,
+                 self.stoplosssignal_vect,
+                 color="brown",
+                 linewidth=1,
+                 label="Dinamyc Stoploss / Static Stoploss")  #fisso
+        plt.plot(self.x,
+                 self.prezzmed_vect,
+                 color="purple",
+                 label="Average Price")
+        plt.plot(self.x,
+                 self.ema_vect,
+                 color="orange",
+                 linewidth=1,
+                 label="Ema Signal")
+
+        plt.xlabel('Time of ' + self.moneta)
+        plt.ylabel('Price')
+        plt.title(self.titolostrategia + ' Value of strategy: ' +
+                  str(self.valorestrategia))
+        plt.grid(True)
+        plt.legend()
+        plt.show()
+
 
     def draw_graphic_2(self):
 

@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='Crypto_1_Backtester',
-    version='0.0.1',
+    version='0.0.2',
     description='First version of Crypto_1_Backtester',
     author='Grando Ruggero',
     author_email='webmaster@megalinux.it',

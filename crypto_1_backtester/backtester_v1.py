@@ -17,14 +17,14 @@ import strategy
 def AvvioBacktester():
 
     exchange = sys.argv[1]  #example: poloniex
-    moneta = sys.argv[2]  #example: 'BTC/ETH'
+    pair = sys.argv[2]  #example: 'BTC/ETH'
 
     risultato = []
     tool = tools.Tools()
 
     strat = strategy.StrategyTrendFollowing()
 
-    strat.ExecuteTrendFollowing(exchange, moneta, tool, risultato)
+    strat.ExecuteTrendFollowing(exchange, pair, tool, risultato)
 
     a = sorted(risultato, key=lambda a_entry: a_entry[2])
 
